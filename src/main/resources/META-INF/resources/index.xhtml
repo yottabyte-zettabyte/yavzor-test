@@ -1,9 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     
-    <p:outputLabel value="Hello World!"/>
-    <br/>
-    <br/>
-    <p:outputLabel value="#{mainController.myValue}"/>
+    <f:view locale="#{applicationProperties.locale}">
+        <h:head>
+            <title>Yasnyy Vzor Test App</title>
+            <h:outputStylesheet name="css/mystyles.css"/>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=Tex-MML-AM_CHTML"></script>
+        </h:head>
+
+        <h:body>
+            <div class="card">
+                <h:form id="mainForm" style="margin-left: 50px;">
+                    <br/>
+                    <br/>
+                    <h:panelGrid columns="1" style="font-size: 25px;">
+                        <math>
+                            <mi>x</mi>
+                            <mo>=</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mi>b</mi>
+                                    <mo>+</mo>
+                                    <msqrt>
+                                        <msup>
+                                            <mi>b</mi>
+                                            <mi>2</mi>
+                                        </msup>
+                                        <mo>−</mo>
+                                        <mn>4</mn>
+                                        <mi>a</mi>
+                                        <mi>c</mi>
+                                    </msqrt>
+                                </mrow>
+                                <mrow>
+                                    <mn>2</mn>
+                                    <mi>a</mi>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                    </h:panelGrid>
+                    <br/>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="aValue" value="Значение a"/>
+                        <p:inputNumber id="aValue" value="#{mainController.AValue}"
+                                       decimalPlaces="0" minValue="0" maxValue="1000" thousandSeparator=""
+                                       inputStyle="text-align: center; width: 80px;"/>
+                        
+                        <p:outputLabel for="bValue" value="Значение b"/>
+                        <p:inputNumber id="bValue" value="#{mainController.BValue}"
+                                       decimalPlaces="0" minValue="0" maxValue="1000" thousandSeparator=""
+                                       inputStyle="text-align: center; width: 80px;"/>
+                        
+                        <p:outputLabel for="cValue" value="Значение c"/>
+                        <p:inputNumber id="cValue" value="#{mainController.CValue}"
+                                       decimalPlaces="0" minValue="0" maxValue="1000" thousandSeparator=""
+                                       inputStyle="text-align: center; width: 80px;"/>
+                        
+                        <h:panelGrid columns="2" style="margin-top: 10px;">
+                            <p:commandButton value="Расчет" styleClass="mt-3" update="resultsPanel"
+                                             actionListener="#{mainController.calculate}"/>
+                        </h:panelGrid>
+                    </h:panelGrid>    
+                    <br/>
+                    <br/>
+                    
+                    <h:panelGrid id="resultsPanel" columns="2" columnClasses="align_right, align_left">
+                        <p:outputLabel value="a = "/>
+                        <p:outputLabel value="#{mainController.AValue}"/>
+                        
+                        <p:outputLabel value="b = "/>
+                        <p:outputLabel value="#{mainController.BValue}"/>
+                        
+                        <p:outputLabel value="c = "/>
+                        <p:outputLabel value="#{mainController.CValue}"/>
+                        
+                        <h:panelGrid columns="1">
+                            <math>
+                                <msqrt>
+                                    <msup>
+                                        <mi>b</mi>
+                                        <mi>2</mi>
+                                    </msup>
+                                    <mo>−</mo>
+                                    <mn>4</mn>
+                                    <mi>a</mi>
+                                    <mi>c</mi>
+                                </msqrt>
+                                <mo>=</mo>
+                            </math>
+                        </h:panelGrid>
+                        <p:outputLabel value="#{mainController.patialResult}"/>
+                        
+                        <p:outputLabel value="x = "/>
+                        <p:outputLabel value="#{mainController.XResult}"/>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </h:body>
+    </f:view>
 </html>
