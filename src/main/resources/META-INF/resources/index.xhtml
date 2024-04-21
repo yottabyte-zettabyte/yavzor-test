@@ -7,7 +7,7 @@
     
     <f:view locale="#{applicationProperties.locale}">
         <h:head>
-            <title>Yasnyy Vzor Test App</title>
+            <title>Test App</title>
             <h:outputStylesheet name="css/mystyles.css"/>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=Tex-MML-AM_CHTML"></script>
         </h:head>
@@ -45,40 +45,36 @@
                     </h:panelGrid>
                     <br/>
                     <h:panelGrid columns="2">
-                        <p:outputLabel for="aValue" value="Значение a"/>
+                        <p:outputLabel for="aValue" value="Значение a "/>
                         <p:inputNumber id="aValue" value="#{mainController.AValue}"
-                                       decimalPlaces="0" minValue="0" maxValue="1000" thousandSeparator=""
+                                       decimalPlaces="0" minValue="0" maxValue="100" thousandSeparator=""
                                        inputStyle="text-align: center; width: 80px;"/>
                         
-                        <p:outputLabel for="bValue" value="Значение b"/>
+                        <p:outputLabel for="bValue" value="Значение b "/>
                         <p:inputNumber id="bValue" value="#{mainController.BValue}"
-                                       decimalPlaces="0" minValue="0" maxValue="1000" thousandSeparator=""
+                                       decimalPlaces="0" minValue="0" maxValue="100" thousandSeparator=""
                                        inputStyle="text-align: center; width: 80px;"/>
                         
-                        <p:outputLabel for="cValue" value="Значение c"/>
+                        <p:outputLabel for="cValue" value="Значение c "/>
                         <p:inputNumber id="cValue" value="#{mainController.CValue}"
-                                       decimalPlaces="0" minValue="0" maxValue="1000" thousandSeparator=""
+                                       decimalPlaces="0" minValue="0" maxValue="100" thousandSeparator=""
                                        inputStyle="text-align: center; width: 80px;"/>
                         
-                        <h:panelGrid columns="2" style="margin-top: 10px;">
-                            <p:commandButton value="Расчет" styleClass="mt-3" update="resultsPanel"
-                                             actionListener="#{mainController.calculate}"/>
-                        </h:panelGrid>
+                        <p:commandButton value="Расчет" styleClass="mt-3" style="margin-top: 10px;"
+                                         update="resultsPanel" actionListener="#{mainController.calculate}"/>
+                        
+                        <p:commandButton value="Округлить" styleClass="mt-3" style="margin-top: 10px;"
+                                         partialSubmit="true"
+                                         update="resultsPanel" actionListener="#{mainController.roundResult}"/>
                     </h:panelGrid>    
                     <br/>
-                    <br/>
                     
-                    <h:panelGrid id="resultsPanel" columns="2" columnClasses="align_right, align_left">
-                        <p:outputLabel value="a = "/>
-                        <p:outputLabel value="#{mainController.AValue}"/>
-                        
-                        <p:outputLabel value="b = "/>
-                        <p:outputLabel value="#{mainController.BValue}"/>
-                        
-                        <p:outputLabel value="c = "/>
-                        <p:outputLabel value="#{mainController.CValue}"/>
-                        
-                        <h:panelGrid columns="1">
+                    <h:panelGrid id="resultsPanel" columns="1">
+                        <p:outputLabel value="Результат:" style="font-weight: bold;"/>
+                        <p:outputLabel value="a = #{mainController.AValue}"/>
+                        <p:outputLabel value="b = #{mainController.BValue}"/>
+                        <p:outputLabel value="c = #{mainController.CValue}"/>
+                        <h:panelGrid columns="2">
                             <math>
                                 <msqrt>
                                     <msup>
@@ -92,12 +88,30 @@
                                 </msqrt>
                                 <mo>=</mo>
                             </math>
+                            <p:outputLabel value="#{mainController.patialResult}"/>
                         </h:panelGrid>
-                        <p:outputLabel value="#{mainController.patialResult}"/>
                         
-                        <p:outputLabel value="x = "/>
-                        <p:outputLabel value="#{mainController.XResult}"/>
+                        <p:outputLabel value="x = #{mainController.XResult}"/>
                     </h:panelGrid>
+                    <br/>
+                    <br/>
+                    
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="График:" style="font-weight: bold;"/>
+                        <br/>
+                        
+                        <p:outputLabel for="yValue" value="Значение y "/>
+                        <p:inputNumber id="yValue" value="#{mainController.YValue}"
+                                       decimalPlaces="1" minValue="0" maxValue="100" decimalSeparator="."
+                                       inputStyle="text-align: center; width: 80px;"/>
+                        
+                        <p:commandButton value="Обновить" styleClass="mt-3" style="margin-top: 10px;"
+                                         update="chartPanel" actionListener="#{mainController.refreshChart}"/>
+                    </h:panelGrid>
+                    
+                    <h:panelGroup id="chartPanel" layout="block" style="width: 800px; height: 800px;">
+                        <p:scatterChart model="#{mainController.chartModel}"/>
+                    </h:panelGroup>
                 </h:form>
             </div>
         </h:body>
