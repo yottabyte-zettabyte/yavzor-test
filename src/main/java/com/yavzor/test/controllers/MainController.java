@@ -2,6 +2,8 @@ package com.yavzor.test.controllers;
 
 import com.yavzor.test.utils.RoundUtil;
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
@@ -38,7 +40,12 @@ public class MainController implements Serializable {
     }
 
     public void calculate() {
-        patialResult = Math.sqrt(Math.pow(bValue, 2d) - 4*aValue*cValue);
+        double underSqrtResult = Math.pow(bValue, 2d) - 4*aValue*cValue;
+        if (underSqrtResult < 0) {
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Результат вычисдения корня должен быть больше нуля"));
+        }
+        patialResult = Math.sqrt(underSqrtResult);
         xResult = (bValue + patialResult) / 2*aValue;
     }
 
