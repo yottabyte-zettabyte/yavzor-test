@@ -43,7 +43,7 @@ public class MainController implements Serializable {
         double underSqrtResult = Math.pow(bValue, 2d) - 4*aValue*cValue;
         if (underSqrtResult < 0) {
             FacesContext.getCurrentInstance()
-                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Результат вычисдения корня должен быть больше нуля"));
+                    .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", "Результат вычисления корня должен быть больше нуля"));
         }
         patialResult = Math.sqrt(underSqrtResult);
         xResult = (bValue + patialResult) / 2*aValue;
